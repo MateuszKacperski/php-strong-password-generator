@@ -1,10 +1,19 @@
 <?php 
 
+session_start();
+
 //Importo la funzione
 include __DIR__ . '/functions/functions.php';
 
 //Recupero password
 $lunghezza_password = $_GET['password'] ?? '';
+
+if($lunghezza_password != '') {
+    $pass_generata = passwordRandom($lunghezza_password);
+    $_SESSION['password'] = $pass_generata;
+    header('Location: ./gpass.php');
+}
+
 //Richiamo la funzione
 passwordRandom($lunghezza_password);
 ?>
@@ -33,10 +42,6 @@ passwordRandom($lunghezza_password);
                     </div>
                     <button type="submit" class="btn btn-primary">Invia</button>
                      <button type="reset" class="btn btn-secondary">Annulla</button>
-            </div>
-            <div class="my-5 text-center">
-                <h3>La password è:</h3>
-                <p><?php  echo $pass ?></p>
             </div>
         </form>
     </div>
